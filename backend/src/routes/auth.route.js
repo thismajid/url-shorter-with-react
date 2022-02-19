@@ -1,15 +1,19 @@
 import { Router } from 'express';
 
-import { register, login, forget, reset } from '../controllers/auth.controller'
+import { register, login, forget, reset } from '../controllers/auth.controller';
+import {
+  registerValidator,
+  loginValidator,
+} from '../middlewares/validator.middleware';
 
-const router = Router();
+const authRouter = Router();
 
-router.post('/register', register)
+authRouter.post('/register', registerValidator, register);
 
-router.post('/login', login)
+authRouter.post('/login', loginValidator, login);
 
-router.post('/forget', forget)
+authRouter.post('/forget', forget);
 
-router.put('/reset', reset)
+authRouter.put('/reset', reset);
 
-export default router;
+export default authRouter;
