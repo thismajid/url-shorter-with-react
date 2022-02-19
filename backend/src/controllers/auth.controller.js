@@ -4,10 +4,16 @@ import {
   findEmail,
   createUser,
   authenticateUser,
+  createNewResetPassword,
+  findToken,
+  updatePassword,
+  expireToken,
 } from '../services/auth.service';
 import { generateToken } from '../services/jwt.service';
+import EmailService from '../services/email.service';
 
 const sendResponse = new SendResponse();
+const emailService = new EmailService();
 
 const register = async (req, res, next) => {
   try {
@@ -61,13 +67,45 @@ const login = async (req, res, next) => {
       })
       .send(res);
   } catch (err) {
+    sendResponse.setError(400, err.message).send(res);
+  }
+};
+
+const forget = async (req, res, next) => {
+  try {
+    const { username, email } = req.body;
+    const user = username
+      ? await findUsername(username)
+      : await findEmail(email);
+    if (!user)
+      return sendResponse.setError(404, 'Invalid username/email').send(res);
+    const { token } = await createNewResetPassword(user.email);
+    await emailService.sendEmail(email, user.firstname, token);
+    return sendResponse
+      .setSuccess(200, 'Email with reset password link has been sent')
+      .send(res);
+  } catch (err) {
     console.log(err);
     sendResponse.setError(400, err.message).send(res);
   }
 };
 
-const forget = async (req, res, next) => {};
-
-const reset = async (req, res, next) => {};
+const reset = async (req, res, next) => {
+  try {
+    const { email, password, token } = req.body;
+    const tokenFound = await findToken(token);
+    if (!tokenFound || tokenFound.isUsed || email !== tokenFound.email)
+      throw new Error('Invalid token');
+    const user = await findEmail(tokenFound.email);
+    if (!user) return sendResponse.setError(404, 'User not found').send(res);
+    await updatePassword(user._id, password);
+    await expireToken(tokenFound._id);
+    return sendResponse
+      .setSuccess(200, 'Update password successfully')
+      .send(res);
+  } catch (err) {
+    sendResponse.setError(400, err.message).send(res);
+  }
+};
 
 export { register, login, forget, reset };

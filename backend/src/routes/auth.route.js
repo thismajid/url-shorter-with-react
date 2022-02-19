@@ -14,6 +14,6 @@ authRouter.post('/login', loginValidator, login);
 
 authRouter.post('/forget', forget);
 
-authRouter.put('/reset', reset);
+authRouter.patch('/reset', reset);
 
 export default authRouter;
