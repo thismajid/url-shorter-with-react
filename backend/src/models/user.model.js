@@ -3,52 +3,55 @@ import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-  firstname: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: 2,
-    maxlength: 20,
+const UserSchema = new Schema(
+  {
+    firstname: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 2,
+      maxlength: 20,
+    },
+    lastname: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 2,
+      maxlength: 20,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      match: /^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}/,
+    },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+      minlength: 4,
+      maxlength: 20,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 6,
+      maxlength: 50,
+      match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+    },
+    role: {
+      type: String,
+      enum: ['admin', 'user'],
+      default: 'user',
+    },
+    avatar: {
+      type: String,
+      default: 'default',
+    },
   },
-  lastname: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: 2,
-    maxlength: 20,
-  },
-  email: {
-    type: String,
-    required: true,
-    trim: true,
-    match: /^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}/,
-  },
-  username: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-    minlength: 4,
-    maxlength: 20,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-    maxlength: 50,
-    match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
-  },
-  role: {
-    type: String,
-    enum: ['admin', 'user'],
-    default: 'user',
-  },
-  avatar: {
-    type: String,
-    default: 'default',
-  },
-});
+  { timestamps: true }
+);
 
 UserSchema.pre('save', function (next) {
   if (this.password) {
