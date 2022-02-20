@@ -10,12 +10,12 @@ const randomString = () => {
   return text;
 };
 
-const createLink = async (url, id) => {
+const createLink = async (url, shortname, userId = null) => {
   try {
     return await Link.create({
       url,
-      shortname: randomString(),
-      user: id,
+      shortname: shortname ? shortname : randomString(),
+      user: userId,
     });
   } catch (err) {
     throw err;
@@ -46,4 +46,12 @@ const deleteSingleLink = async (id) => {
   }
 };
 
-export { createLink, getLink, deleteSingleLink, getLinkById };
+const updateUrl = async (id, url, shortname) => {
+  try {
+    return await Link.findByIdAndUpdate(id, { url, shortname }, { new: true });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export { createLink, getLink, deleteSingleLink, getLinkById, updateUrl };
