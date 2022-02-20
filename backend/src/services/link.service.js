@@ -54,4 +54,19 @@ const updateUrl = async (id, url, shortname) => {
   }
 };
 
-export { createLink, getLink, deleteSingleLink, getLinkById, updateUrl };
+const getLinkByShortname = async (shortname) => {
+  try {
+    return await Link.findOne({ shortname });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export {
+  createLink,
+  getLink,
+  deleteSingleLink,
+  getLinkById,
+  updateUrl,
+  getLinkByShortname,
+};

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { authorize, decodeToken } from '../middlewares/authorize.middleware';
 
 import {
   createShortLink,
@@ -9,12 +10,12 @@ import {
 
 const linkRouter = Router();
 
-linkRouter.post('/', createShortLink);
+linkRouter.post('/', authorize, createShortLink);
 
 linkRouter.get('/:shortname', getSingleLink);
 
-linkRouter.delete('/', deleteLink);
+linkRouter.delete('/', authorize, deleteLink);
 
-linkRouter.put('/', updateLink);
+linkRouter.put('/', authorize, updateLink);
 
 export default linkRouter;

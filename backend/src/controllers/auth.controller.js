@@ -15,7 +15,7 @@ import EmailService from '../services/email.service';
 const sendResponse = new SendResponse();
 const emailService = new EmailService();
 
-const register = async (req, res, next) => {
+const register = async (req, res) => {
   try {
     const { firstname, lastname, email, username, password } = req.body;
     const usernameFound = await findUsername(username);
@@ -48,7 +48,7 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {
+const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     const userFound = await findUsername(username);
@@ -60,7 +60,7 @@ const login = async (req, res, next) => {
       .setSuccess(200, 'Login successfully', {
         user: userFound,
         token: generateToken({
-          id: userFound._id,
+          userId: userFound._id,
           firstname: userFound.firstname,
           lastname: userFound.lastname,
         }),
@@ -71,7 +71,7 @@ const login = async (req, res, next) => {
   }
 };
 
-const forget = async (req, res, next) => {
+const forget = async (req, res) => {
   try {
     const { username, email } = req.body;
     const user = username
@@ -90,7 +90,7 @@ const forget = async (req, res, next) => {
   }
 };
 
-const reset = async (req, res, next) => {
+const reset = async (req, res) => {
   try {
     const { email, password, token } = req.body;
     const tokenFound = await findToken(token);
