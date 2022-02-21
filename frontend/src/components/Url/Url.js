@@ -16,7 +16,7 @@ const Url = () => {
     if (count === 0) {
       setTimeout(() => {
         window.location = url.url;
-      }, 2000);
+      }, 1500);
     }
   }, [count]);
 

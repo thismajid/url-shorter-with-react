@@ -9,6 +9,7 @@ import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import HomePage from "./components/HomePage/HomePage";
 import Url from "./components/Url/Url";
+import Dashboard from "./components/Dashboard/Dashboard";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 
 function App() {
@@ -64,17 +65,21 @@ function App() {
             </>
           )}
         />
-        <Route path="/:shortname" component={Url} />
-        <Route path="/" component={HomePage} />
-        {/* <ProtectedRoute
-          path="/"
+        <ProtectedRoute
+          path="/dashboard"
           exact
-          component={Todolist}
+          component={Dashboard}
           isAuthenticated={isAuthenticated}
-        /> */}
-        <Route exact path="/logout">
-          <Redirect to="/" />
-        </Route>
+        />
+
+        <ProtectedRoute
+          exact
+          path="/logout"
+          isAuthenticated={isAuthenticated}
+        />
+        <Route path="/" exact component={HomePage} />
+        <Route path="/:shortname" component={Url} />
+
         <Route component={NotFoundPage} />
       </Switch>
     </div>
