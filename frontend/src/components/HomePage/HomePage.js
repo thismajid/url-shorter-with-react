@@ -32,7 +32,7 @@ const HomePage = ({ history }) => {
       if (data) {
         successToast("URL shortened successfully");
         setTimeout(() => {
-          history.push(`/url/${data.data.shortname}`);
+          history.push(`/${data.data.shortname}`);
         }, 3000);
       }
     } catch (err) {

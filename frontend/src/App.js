@@ -5,9 +5,10 @@ import jwt_decode from "jwt-decode";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Redirecting from "./components/Redirecting";
 import Navbar from "./components/Navbar/Navbar";
-import HomePage from "./components/HomePage/HomePage";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
+import HomePage from "./components/HomePage/HomePage";
+import Url from "./components/Url/Url";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 
 function App() {
@@ -63,7 +64,7 @@ function App() {
             </>
           )}
         />
-
+        <Route path="/:shortname" component={Url} />
         <Route path="/" component={HomePage} />
         {/* <ProtectedRoute
           path="/"

@@ -24,4 +24,12 @@ const addUrl = async (url) => {
   }
 };
 
-export { registerReq, loginReq, addUrl };
+const getUrl = async (shortname) => {
+  try {
+    return await http.get(`/url/${shortname}`);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export { registerReq, loginReq, addUrl, getUrl };
