@@ -3,6 +3,7 @@ import { FaUserAlt, FaSignOutAlt } from "react-icons/fa";
 import "./navbar.css";
 
 const Navbar = ({ auth, onClickLogout, user }) => {
+  console.log(window.location.pathname);
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand-md bg-faded justify-content-center">
       <div className="d-flex w-50 mr-auto">
@@ -25,33 +26,30 @@ const Navbar = ({ auth, onClickLogout, user }) => {
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0 profile-menu">
                 <li className="nav-item dropdown">
                   <a
-                    className="nav-link dropdown-toggle"
                     href="#"
-                    id="navbarDropdown"
-                    role="button"
+                    className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    <FaUserAlt style={{ width: "20px" }} />
+                    <img
+                      src="https://github.com/mdo.png"
+                      alt=""
+                      width="32"
+                      height="32"
+                      className="rounded-circle me-2"
+                    />
+                    <strong>
+                      {user && user.firstname} {user && user.lastname}
+                    </strong>
                   </a>
                   <ul
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        <i className="fas fa-sliders-h fa-fw"></i>
-                        {user && user.firstname} {user && user.lastname}
-                      </a>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <Link to="/dashboard" className="dropdown-item">
-                        Dashboard
-                      </Link>
-                    </li>
+                    <Link to="/dashboard" className="dropdown-item">
+                      Dashboard
+                    </Link>
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
