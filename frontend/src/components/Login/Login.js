@@ -1,6 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { Toast, successToast, errorToast } from "../Toast/Toast";
+import { loginReq } from "../../services/requestService";
+
 const Login = ({ setIsAuthenticated, setUserInfo }) => {
   const [user, setUser] = useState({
     username: "",
@@ -14,7 +15,7 @@ const Login = ({ setIsAuthenticated, setUserInfo }) => {
   const submitHandler = async (e) => {
     try {
       e.preventDefault();
-      const { data } = await axios.post("http://localhost:3001/api/auth/login");
+      const { data } = await loginReq(user);
       if (data) {
         localStorage.setItem("token", `${data.data.token}`);
         setUserInfo(data.data.user);
@@ -33,50 +34,55 @@ const Login = ({ setIsAuthenticated, setUserInfo }) => {
   };
 
   return (
-    <div className="col-4 m-auto mt-5">
+    <div className="container col-5 m-auto mt-5">
       <Toast />
-      <form onSubmit={submitHandler}>
-        <div className="mb-3 row">
-          <label htmlFor="username" className="col-sm-2 col-form-label">
-            Username
-          </label>
-          <div className="col-sm-10">
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              name="username"
-              value={user.username}
-              onChange={changeHandler}
-            />
-          </div>
+      <div className="card">
+        <div className="card-header">Login</div>
+        <div className="card-body mt-3">
+          <form onSubmit={submitHandler}>
+            <div className="mb-3 row">
+              <label htmlFor="username" className="col-sm-2 col-form-label">
+                Username
+              </label>
+              <div className="col-sm-10">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  name="username"
+                  value={user.username}
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
+            <div className="mb-3 row">
+              <label htmlFor="password" className="col-sm-2 col-form-label">
+                Password
+              </label>
+              <div className="col-sm-10">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  value={user.password}
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
+            <div className="mb-3 row">
+              <div className="col-5"></div>
+              <div className="col-6 m-auto">
+                <input
+                  type="submit"
+                  className="btn btn-success mt-3"
+                  value="Login"
+                />
+              </div>
+            </div>
+          </form>
         </div>
-        <div className="mb-3 row">
-          <label htmlFor="password" className="col-sm-2 col-form-label">
-            Password
-          </label>
-          <div className="col-sm-10">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={user.password}
-              onChange={changeHandler}
-            />
-          </div>
-        </div>
-        <div className="mb-3 row">
-          <div className="col-sm-2"></div>
-          <div className="col-sm-10">
-            <input
-              type="submit"
-              className="btn btn-success mt-3"
-              value="Login"
-            />
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };

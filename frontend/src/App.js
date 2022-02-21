@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Redirecting from "./components/Redirecting";
 import Navbar from "./components/Navbar/Navbar";
+import HomePage from "./components/HomePage/HomePage";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
@@ -62,6 +63,8 @@ function App() {
             </>
           )}
         />
+
+        <Route path="/" component={HomePage} />
         {/* <ProtectedRoute
           path="/"
           exact

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const LinkSchema = new Schema(
+const UrlSchema = new Schema(
   {
     url: { type: String, required: true },
     shortname: { type: String, required: true, unique: true },
@@ -14,4 +14,4 @@ const LinkSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Link', LinkSchema);
+module.exports = mongoose.model('Url', UrlSchema);

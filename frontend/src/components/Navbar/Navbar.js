@@ -76,7 +76,7 @@ const Navbar = ({ auth, onClickLogout, user }) => {
 
           <span className="navbar-text">
             <Link to="/" className="nav-link">
-              Todolist
+              URL Shorter
             </Link>
           </span>
         </div>

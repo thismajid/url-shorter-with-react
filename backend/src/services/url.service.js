@@ -1,4 +1,4 @@
-import Link from '../models/link.model';
+import Url from '../models/url.model';
 
 const randomString = () => {
   let text = '';
@@ -10,9 +10,9 @@ const randomString = () => {
   return text;
 };
 
-const createLink = async (url, shortname, userId = null) => {
+const createUrl = async (url, shortname, userId = null) => {
   try {
-    return await Link.create({
+    return await Url.create({
       url,
       shortname: shortname ? shortname : randomString(),
       user: userId,
@@ -22,25 +22,25 @@ const createLink = async (url, shortname, userId = null) => {
   }
 };
 
-const getLink = async (shortname) => {
+const getUrl = async (shortname) => {
   try {
-    return await Link.findOne({ shortname });
+    return await Url.findOne({ shortname });
   } catch (err) {
     throw err;
   }
 };
 
-const getLinkById = async (id) => {
+const getUrlById = async (id) => {
   try {
-    return await Link.findById(id);
+    return await Url.findById(id);
   } catch (err) {
     throw err;
   }
 };
 
-const deleteSingleLink = async (id) => {
+const deleteSingleUrl = async (id) => {
   try {
-    return await Link.deleteOne({ _id: id });
+    return await Url.deleteOne({ _id: id });
   } catch (err) {
     throw err;
   }
@@ -48,25 +48,25 @@ const deleteSingleLink = async (id) => {
 
 const updateUrl = async (id, url, shortname) => {
   try {
-    return await Link.findByIdAndUpdate(id, { url, shortname }, { new: true });
+    return await Url.findByIdAndUpdate(id, { url, shortname }, { new: true });
   } catch (err) {
     throw err;
   }
 };
 
-const getLinkByShortname = async (shortname) => {
+const getUrlByShortname = async (shortname) => {
   try {
-    return await Link.findOne({ shortname });
+    return await Url.findOne({ shortname });
   } catch (err) {
     throw err;
   }
 };
 
 export {
-  createLink,
-  getLink,
-  deleteSingleLink,
-  getLinkById,
+  createUrl,
+  getUrl,
+  deleteSingleUrl,
+  getUrlById,
   updateUrl,
-  getLinkByShortname,
+  getUrlByShortname,
 };

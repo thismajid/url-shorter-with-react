@@ -1,46 +1,48 @@
 import SendResponse from '../utils/sendResponse.util';
 import {
-  createLink,
-  getLink,
-  getLinkById,
-  deleteSingleLink,
+  createUrl,
+  getUrl,
+  getUrlById,
+  deleteSingleUrl,
   updateUrl,
-  getLinkByShortname,
-} from '../services/link.service';
+  getUrlByShortname,
+} from '../services/url.service';
 
 const sendResponse = new SendResponse();
 
-const createShortLink = async (req, res) => {
+const createShortUrl = async (req, res) => {
   try {
     const { url, shortname } = req.body;
     const { userId } = req.user;
-    const checkShortnameExist = await getLinkByShortname(shortname);
+    console.log(req.body);
+    const checkShortnameExist = await getUrlByShortname(shortname);
     if (checkShortnameExist)
       return sendResponse
         .setError(400, 'Duplicate shortname, please pickup another shortname')
         .send(res);
-    const newLink = await createLink(url, shortname, userId);
+    const newUrl = await createUrl(url, shortname, userId);
     return sendResponse
-      .setSuccess(201, 'New short url created successfully', newLink)
+      .setSuccess(201, 'New short url created successfully', newUrl)
       .send(res);
   } catch (err) {
+    console.log(err);
     return sendResponse.setError(400, err.message).send(res);
   }
 };
 
-const getSingleLink = async (req, res) => {
+const getSingleUrl = async (req, res) => {
   try {
     const { shortname } = req.params;
-    const link = await getLink(shortname);
-    if (!link)
+    const url = await getUrl(shortname);
+    if (!url)
       return sendResponse
-        .setError(404, `Link with shortname: ${shortname} does not exist`)
+        .setError(404, `URL with shortname: ${shortname} does not exist`)
         .send(res);
     return sendResponse
       .setSuccess(
         200,
-        `Link with shortname: ${shortname} retrieved successfully`,
-        link
+        `URL with shortname: ${shortname} retrieved successfully`,
+        url
       )
       .send(res);
   } catch (err) {
@@ -48,44 +50,44 @@ const getSingleLink = async (req, res) => {
   }
 };
 
-const deleteLink = async (req, res) => {
+const deleteUrl = async (req, res) => {
   try {
     const { id } = req.body;
     const { userId } = req.user;
-    const linkFound = await getLinkById(id);
-    if (!linkFound)
+    const urlFound = await getUrlById(id);
+    if (!urlFound)
       return sendResponse
-        .setError(404, `Link with id: ${id} does not exist`)
+        .setError(404, `Url with id: ${id} does not exist`)
         .send(res);
-    if (linkFound.user !== userId)
+    if (urlFound.user !== userId)
       return sendResponse.setError(403, `Permission denied`).send(res);
-    await deleteSingleLink(id);
+    await deleteSingleUrl(id);
     return sendResponse
-      .setSuccess(200, `Link with id: ${id} deleted successfully`)
+      .setSuccess(200, `URL with id: ${id} deleted successfully`)
       .send(res);
   } catch (err) {
     return sendResponse.setError(400, err.message).send(res);
   }
 };
 
-const updateLink = async (req, res) => {
+const editUrl = async (req, res) => {
   try {
     const { id, url, shortname } = req.body;
     const { userId } = req.user;
-    const linkFound = await getLinkById(id);
-    if (!linkFound)
+    const urlFound = await getUrlById(id);
+    if (!urlFound)
       return sendResponse
-        .setError(404, `Link with id: ${id} does not exist`)
+        .setError(404, `URL with id: ${id} does not exist`)
         .send(res);
-    if (linkFound.user !== userId)
+    if (urlFound.user !== userId)
       return sendResponse.setError(403, `Permission denied`).send(res);
-    const updateLink = await updateUrl(id, url, shortname);
+    const updateUrl = await updateUrl(id, url, shortname);
     return sendResponse
-      .setSuccess(200, `Link with id: ${id} update successfully`, updateLink)
+      .setSuccess(200, `URL with id: ${id} update successfully`, updateUrl)
       .send(res);
   } catch (err) {
     return sendResponse.setError(400, err.message).send(res);
   }
 };
 
-export { createShortLink, getSingleLink, deleteLink, updateLink };
+export { createShortUrl, getSingleUrl, deleteUrl, editUrl };
