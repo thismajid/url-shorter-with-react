@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-import { authorize } from '../middlewares/authorize.middleware';
 import { avatarUpload } from '../middlewares/uploader.middleware';
 
 import {
@@ -9,23 +8,25 @@ import {
   updateProfile,
   uploadAvatar,
   removeAvatar,
+  resetPassword,
 } from '../controllers/dashboard.controller';
 
 const dashboardRouter = Router();
 
-dashboardRouter.get('/urls', authorize, getUrls);
+dashboardRouter.get('/urls', getUrls);
 
-dashboardRouter.get('/profile', authorize, getUser);
+dashboardRouter.get('/profile', getUser);
 
-dashboardRouter.put('/profile', authorize, updateProfile);
+dashboardRouter.put('/profile', updateProfile);
 
 dashboardRouter.post(
   '/profile/avatar',
-  authorize,
   avatarUpload.single('avatar'),
   uploadAvatar
 );
 
-dashboardRouter.put('/profile/avatar', authorize, removeAvatar);
+dashboardRouter.put('/profile/avatar', removeAvatar);
+
+dashboardRouter.get('/profile/reset-password', resetPassword);
 
 export default dashboardRouter;

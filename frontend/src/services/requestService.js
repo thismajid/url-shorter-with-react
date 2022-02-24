@@ -74,6 +74,14 @@ const removeAvatar = async () => {
   }
 };
 
+const resetPasswordProfile = async () => {
+  try {
+    return await http.get("/dashboard/profile/reset-password");
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   registerReq,
   loginReq,
@@ -84,4 +92,5 @@ export {
   changeProfile,
   uploadAvatar,
   removeAvatar,
+  resetPasswordProfile,
 };

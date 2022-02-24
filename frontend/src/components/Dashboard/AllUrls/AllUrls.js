@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { getAllUserUrls } from "../../../services/requestService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import Back from "../Back/Back";
 
 const AllUrls = () => {
   const [urls, setUrls] = useState(null);
@@ -21,45 +22,48 @@ const AllUrls = () => {
   };
 
   return (
-    <div className="table-responsive">
-      <table className="table align-middle">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">URL</th>
-            <th scope="col">Shortname</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Updated At</th>
-            <th scope="col">Operations</th>
-          </tr>
-        </thead>
-        <tbody>
-          {urls &&
-            urls.map((url, index) => {
-              return (
-                <tr key={url._id}>
-                  <th scope="row">{index + 1}</th>
-                  <td>{url.url}</td>
-                  <td>{url.shortname}</td>
-                  <td>{moment(url.createdAt).format("L")}</td>
-                  <td>{moment(url.updatedAt).format("L")}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-success btn-sm me-2 "
-                    >
-                      <AiFillEdit />
-                    </button>
-                    <button type="button" className="btn btn-danger btn-sm ">
-                      <AiFillDelete />
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <Back />
+      <div className="table-responsive">
+        <table className="table align-middle">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">URL</th>
+              <th scope="col">Shortname</th>
+              <th scope="col">Created At</th>
+              <th scope="col">Updated At</th>
+              <th scope="col">Operations</th>
+            </tr>
+          </thead>
+          <tbody>
+            {urls &&
+              urls.map((url, index) => {
+                return (
+                  <tr key={url._id}>
+                    <th scope="row">{index + 1}</th>
+                    <td>{url.url}</td>
+                    <td>{url.shortname}</td>
+                    <td>{moment(url.createdAt).format("L")}</td>
+                    <td>{moment(url.updatedAt).format("L")}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-success btn-sm me-2 "
+                      >
+                        <AiFillEdit />
+                      </button>
+                      <button type="button" className="btn btn-danger btn-sm ">
+                        <AiFillDelete />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

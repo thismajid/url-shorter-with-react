@@ -6,8 +6,11 @@ import {
   changeAvatar,
   changeAvatarToDefault,
 } from '../services/user.service';
+import { createNewResetPassword } from '../services/auth.service';
+import EmailService from '../services/email.service';
 
 const sendResponse = new SendResponse();
+const emailService = new EmailService();
 
 const getUrls = async (req, res) => {
   try {
@@ -17,7 +20,7 @@ const getUrls = async (req, res) => {
       .setSuccess(200, 'All your urls retrieved successfully', urls)
       .send(res);
   } catch (err) {
-    sendResponse.setError(400, err.message).send(res);
+    return sendResponse.setError(400, err.message).send(res);
   }
 };
 
@@ -29,7 +32,7 @@ const getUser = async (req, res) => {
       .setSuccess(200, `User with id: ${userId} retrieved successfully`, user)
       .send(res);
   } catch (err) {
-    sendResponse.setError(400, err.message).send(res);
+    return sendResponse.setError(400, err.message).send(res);
   }
 };
 
@@ -46,7 +49,7 @@ const updateProfile = async (req, res) => {
       )
       .send(res);
   } catch (err) {
-    sendResponse.setError(400, err.message).send(res);
+    return sendResponse.setError(400, err.message).send(res);
   }
 };
 
@@ -59,20 +62,53 @@ const uploadAvatar = async (req, res) => {
       .setSuccess(200, `User with id: ${userId} avatar updated successfully`)
       .send(res);
   } catch (err) {
-    sendResponse.setError(400, err.message).send(res);
+    return sendResponse.setError(400, err.message).send(res);
   }
 };
 
 const removeAvatar = async (req, res) => {
   try {
     const { userId } = req.user;
+    const user = await getUserByUserId(userId);
+    if (!user) {
+      return sendResponse
+        .setSuccess(404, `User with id: ${userId} not found`)
+        .send(res);
+    }
     await changeAvatarToDefault(userId);
     return sendResponse
       .setSuccess(200, `User with id: ${userId} avatar removed successfully`)
       .send(res);
   } catch (err) {
-    sendResponse.setError(400, err.message).send(res);
+    return sendResponse.setError(400, err.message).send(res);
   }
 };
 
-export { getUrls, getUser, updateProfile, uploadAvatar, removeAvatar };
+const resetPassword = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const user = await getUserByUserId(userId);
+    if (!user) {
+      return sendResponse
+        .setSuccess(404, `User with id: ${userId} not found`)
+        .send(res);
+    }
+    const { token } = await createNewResetPassword(user.email);
+    await emailService.sendEmail(user.email, user.firstname, token);
+    return sendResponse
+      .setSuccess(200, 'Email with reset password link has been sent')
+      .send(res);
+  } catch (err) {
+    console.log(err);
+    return sendResponse.setError(400, err.message).send(res);
+  }
+};
+
+export {
+  getUrls,
+  getUser,
+  updateProfile,
+  uploadAvatar,
+  removeAvatar,
+  resetPassword,
+};

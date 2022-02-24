@@ -4,6 +4,7 @@ import {
   uploadAvatar,
   removeAvatar,
 } from "../../../../services/requestService";
+import Back from "../../Back/Back";
 
 const Avatar = () => {
   const [avatar, setAvatar] = useState(null);
@@ -44,33 +45,36 @@ const Avatar = () => {
   };
 
   return (
-    <div className="card mt-5 mb-5 w-50 m-auto">
-      <Toast />
-      <div className="card-header">User Avatar</div>
-      <div className="card-body mt-3">
-        <form>
-          <div className="input-group mb-3">
-            <input
-              type="file"
-              className="form-control"
-              id="inputGroupFile02"
-              onChange={changeHandler}
-            />
+    <>
+      <Back />
+      <div className="card mt-5 mb-5 w-50 m-auto">
+        <Toast />
+        <div className="card-header">User Avatar</div>
+        <div className="card-body mt-3">
+          <form>
+            <div className="input-group mb-3">
+              <input
+                type="file"
+                className="form-control"
+                id="inputGroupFile02"
+                onChange={changeHandler}
+              />
+            </div>
+          </form>
+          <div className="text-center mt-4">
+            <button className="btn btn-success" onClick={submitHandler}>
+              Upload
+            </button>
+            <button
+              className="btn btn-outline-danger ms-3"
+              onClick={removeHandler}
+            >
+              Remove
+            </button>
           </div>
-        </form>
-        <div className="text-center mt-4">
-          <button className="btn btn-success" onClick={submitHandler}>
-            Upload
-          </button>
-          <button
-            className="btn btn-outline-danger ms-3"
-            onClick={removeHandler}
-          >
-            Remove
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
