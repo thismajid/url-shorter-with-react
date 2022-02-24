@@ -1,6 +1,11 @@
 import SendResponse from '../utils/sendResponse.util';
 import { getUrlsByUserId } from '../services/url.service';
-import { getUserByUserId, updateUser } from '../services/user.service';
+import {
+  getUserByUserId,
+  updateUser,
+  changeAvatar,
+  changeAvatarToDefault,
+} from '../services/user.service';
 
 const sendResponse = new SendResponse();
 
@@ -45,4 +50,29 @@ const updateProfile = async (req, res) => {
   }
 };
 
-export { getUrls, getUser, updateProfile };
+const uploadAvatar = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const { filename } = req.file;
+    await changeAvatar(userId, filename);
+    return sendResponse
+      .setSuccess(200, `User with id: ${userId} avatar updated successfully`)
+      .send(res);
+  } catch (err) {
+    sendResponse.setError(400, err.message).send(res);
+  }
+};
+
+const removeAvatar = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    await changeAvatarToDefault(userId);
+    return sendResponse
+      .setSuccess(200, `User with id: ${userId} avatar removed successfully`)
+      .send(res);
+  } catch (err) {
+    sendResponse.setError(400, err.message).send(res);
+  }
+};
+
+export { getUrls, getUser, updateProfile, uploadAvatar, removeAvatar };

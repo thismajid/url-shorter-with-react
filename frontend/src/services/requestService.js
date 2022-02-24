@@ -48,4 +48,40 @@ const getProfile = async () => {
   }
 };
 
-export { registerReq, loginReq, addUrl, getUrl, getAllUserUrls, getProfile };
+const changeProfile = async (updatedUser) => {
+  try {
+    return await http.put("/dashboard/profile", updatedUser);
+  } catch (err) {
+    throw err;
+  }
+};
+
+const uploadAvatar = async (formData) => {
+  try {
+    return await http.post("/dashboard/profile/avatar", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+const removeAvatar = async () => {
+  try {
+    return await http.put("/dashboard/profile/avatar");
+  } catch (err) {
+    throw err;
+  }
+};
+
+export {
+  registerReq,
+  loginReq,
+  addUrl,
+  getUrl,
+  getAllUserUrls,
+  getProfile,
+  changeProfile,
+  uploadAvatar,
+  removeAvatar,
+};

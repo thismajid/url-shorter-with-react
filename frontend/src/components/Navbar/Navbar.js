@@ -17,6 +17,8 @@ const Navbar = ({ auth, onClickLogout, user }) => {
         return setDashboardNav(true);
       case "/profile":
         return setDashboardNav(true);
+      case "/profile/avatar":
+        return setDashboardNav(true);
       default:
         return setDashboardNav(false);
     }

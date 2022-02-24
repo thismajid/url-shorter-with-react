@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { getProfile } from "../../../services/requestService";
+import { Link } from "react-router-dom";
+import { Toast, successToast, errorToast } from "../../Toast/Toast";
+import { getProfile, changeProfile } from "../../../services/requestService";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [updateUser, setUpdateUser] = useState({});
 
   useEffect(() => {
     getUser();
@@ -16,7 +17,7 @@ const Profile = () => {
         setUser(data.data);
       }
     } catch (err) {
-      console.log(err);
+      errorToast("Something went wrong ...");
     }
   };
 
@@ -24,21 +25,29 @@ const Profile = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = (e) => {
+  const updateHandler = async (e) => {
     try {
       e.preventDefault();
-      console.log(user);
+      if (user) {
+        await changeProfile(user);
+        successToast("Profile changed successfully");
+        setTimeout(() => {
+          window.location.href = "/logout";
+          localStorage.removeItem("token");
+        }, 2500);
+      }
     } catch (err) {
-      console.log(err);
+      errorToast("Something went wrong ...");
     }
   };
 
   return (
     <div className="card mt-5 mb-5 w-50 m-auto">
+      <Toast />
       <div className="card-header">User Profile</div>
       <div className="card-body mt-3">
         {user && (
-          <form onSubmit={submitHandler}>
+          <form>
             <div className="mb-3 row">
               <label htmlFor="firstname" className="col-sm-2 col-form-label">
                 Firstname
@@ -99,19 +108,17 @@ const Profile = () => {
                 />
               </div>
             </div>
-
-            <div className="mb-3 row">
-              <div className="col-5"></div>
-              <div className="col-6 m-auto">
-                <input
-                  type="submit"
-                  className="btn btn-success mt-3"
-                  value="Update"
-                />
-              </div>
-            </div>
           </form>
         )}
+        <div className="text-center mt-5 mb-3">
+          <button className="btn btn-secondary">Reset Password</button>
+          <button className="btn btn-success ms-3" onClick={updateHandler}>
+            Update
+          </button>
+          <Link to="/profile/avatar">
+            <button className="btn btn-primary ms-3">Change Avatar</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

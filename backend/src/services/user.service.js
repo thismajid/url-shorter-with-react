@@ -18,4 +18,24 @@ const updateUser = async (userId, updateItems) => {
   }
 };
 
-export { getUserByUserId, updateUser };
+const changeAvatar = async (userId, avatar) => {
+  try {
+    return await User.findByIdAndUpdate(userId, {
+      avatar: `uploads/avatars/${avatar}`,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+const changeAvatarToDefault = async (userId) => {
+  try {
+    return await User.findByIdAndUpdate(userId, {
+      avatar: `uploads/user-avatar.png`,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export { getUserByUserId, updateUser, changeAvatar, changeAvatarToDefault };

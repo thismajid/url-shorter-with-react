@@ -12,6 +12,7 @@ import Url from "./components/Url/Url";
 import Dashboard from "./components/Dashboard/Dashboard";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import Profile from "./components/Dashboard/Profile/Profile";
+import Avatar from "./components/Dashboard/Profile/Avatar/Avatar";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -70,6 +71,14 @@ function App() {
           path="/dashboard"
           exact
           component={Dashboard}
+          isAuthenticated={isAuthenticated}
+          user={user}
+        />
+
+        <ProtectedRoute
+          path="/profile/avatar"
+          exact
+          component={Avatar}
           isAuthenticated={isAuthenticated}
           user={user}
         />
