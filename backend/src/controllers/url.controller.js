@@ -59,13 +59,15 @@ const deleteUrl = async (req, res) => {
       return sendResponse
         .setError(404, `Url with id: ${id} does not exist`)
         .send(res);
-    if (urlFound.user !== userId)
+    if (urlFound.user.toString() !== userId) {
       return sendResponse.setError(403, `Permission denied`).send(res);
+    }
     await deleteSingleUrl(id);
     return sendResponse
       .setSuccess(200, `URL with id: ${id} deleted successfully`)
       .send(res);
   } catch (err) {
+    console.log(err);
     return sendResponse.setError(400, err.message).send(res);
   }
 };

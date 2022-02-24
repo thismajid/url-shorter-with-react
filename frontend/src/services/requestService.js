@@ -82,6 +82,14 @@ const resetPasswordProfile = async () => {
   }
 };
 
+const removeUrl = async (id) => {
+  try {
+    return await http.delete("/url", { data: { id } });
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   registerReq,
   loginReq,
@@ -93,4 +101,5 @@ export {
   uploadAvatar,
   removeAvatar,
   resetPasswordProfile,
+  removeUrl,
 };

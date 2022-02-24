@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { getAllUserUrls } from "../../../services/requestService";
+import { Toast, successToast, errorToast } from "../../Toast/Toast";
+import { getAllUserUrls, removeUrl } from "../../../services/requestService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import Back from "../Back/Back";
 
@@ -15,15 +16,32 @@ const AllUrls = () => {
     try {
       const { data } = await getAllUserUrls();
       if (data) {
-        console.log(data.data);
         setUrls(data.data);
       }
-    } catch (err) {}
+    } catch (err) {
+      errorToast("Something went wrong ...");
+    }
+  };
+
+  const deleteHandler = async (e) => {
+    try {
+      const id = e.target.id.split("-")[1];
+      if (id) {
+        await removeUrl(id);
+        successToast("URL removed successfully");
+        setTimeout(() => {
+          getUrls();
+        }, 3000);
+      }
+    } catch (err) {
+      errorToast("Something went wrong ...");
+    }
   };
 
   return (
     <>
       <Back />
+      <Toast />
       <div className="table-responsive">
         <table className="table align-middle">
           <thead>
@@ -53,7 +71,12 @@ const AllUrls = () => {
                       >
                         <AiFillEdit />
                       </button>
-                      <button type="button" className="btn btn-danger btn-sm ">
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm"
+                        id={`url-${url._id}`}
+                        onClick={deleteHandler}
+                      >
                         <AiFillDelete />
                       </button>
                     </td>
