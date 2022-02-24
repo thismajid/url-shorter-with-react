@@ -11,6 +11,7 @@ import HomePage from "./components/HomePage/HomePage";
 import Url from "./components/Url/Url";
 import Dashboard from "./components/Dashboard/Dashboard";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
+import Profile from "./components/Dashboard/Profile/Profile";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -70,6 +71,15 @@ function App() {
           exact
           component={Dashboard}
           isAuthenticated={isAuthenticated}
+          user={user}
+        />
+
+        <ProtectedRoute
+          path="/profile"
+          exact
+          component={Profile}
+          isAuthenticated={isAuthenticated}
+          user={user}
         />
 
         <ProtectedRoute

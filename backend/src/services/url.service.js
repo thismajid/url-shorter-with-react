@@ -62,6 +62,14 @@ const getUrlByShortname = async (shortname) => {
   }
 };
 
+const getUrlsByUserId = async (userId) => {
+  try {
+    return await Url.find({ user: userId });
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   createUrl,
   getUrl,
@@ -69,4 +77,5 @@ export {
   getUrlById,
   updateUrl,
   getUrlByShortname,
+  getUrlsByUserId,
 };

@@ -7,15 +7,15 @@ const authorize = (req, res, next) => {
   const headers = req.headers.authorization;
   if (headers && headers.split(' ')[0] === 'Bearer') {
     req.user.token = headers.split(' ')[1];
-    decodeToken(req.user, next);
+    decodeToken(req, next);
   } else {
     next();
   }
 };
 
-const decodeToken = (user, next) => {
+const decodeToken = (req, next) => {
   try {
-    user = jwt.verify(user.token, jwtConfig.secret);
+    req.user = jwt.verify(req.user.token, jwtConfig.secret);
     next();
   } catch (err) {
     throw new Error('Invalid token');

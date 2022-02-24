@@ -47,7 +47,7 @@ const UserSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: 'default',
+      default: 'uploads/user-avatar.png',
     },
   },
   { timestamps: true }
@@ -62,7 +62,7 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.pre('findOneAndUpdate', function (next) {
-  if (this.getUpdate().$set) {
+  if (this.password && this.getUpdate().$set) {
     let salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync(this.getUpdate().$set.password, salt);
     this.getUpdate().$set.password = hash;

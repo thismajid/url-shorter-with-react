@@ -32,4 +32,20 @@ const getUrl = async (shortname) => {
   }
 };
 
-export { registerReq, loginReq, addUrl, getUrl };
+const getAllUserUrls = async () => {
+  try {
+    return await http.get(`/dashboard/urls`);
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getProfile = async () => {
+  try {
+    return await http.get("/dashboard/profile");
+  } catch (err) {
+    throw err;
+  }
+};
+
+export { registerReq, loginReq, addUrl, getUrl, getAllUserUrls, getProfile };
