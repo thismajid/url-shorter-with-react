@@ -98,6 +98,14 @@ const updateUrlReq = async (updatedUrl) => {
   }
 };
 
+const getAllUsersUrls = async () => {
+  try {
+    return await http.get("/admin/urls");
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   registerReq,
   loginReq,
@@ -111,4 +119,5 @@ export {
   resetPasswordProfile,
   removeUrl,
   updateUrlReq,
+  getAllUsersUrls,
 };

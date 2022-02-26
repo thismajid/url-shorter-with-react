@@ -117,10 +117,10 @@ const Navbar = ({ auth, onClickLogout, user }) => {
                 </Link>
                 {user.role === "admin" && (
                   <>
-                    <ul class="navbar-nav ms-2 dropdown-item">
-                      <li class="nav-item dropdown">
+                    <ul className="navbar-nav ms-2 dropdown-item">
+                      <li className="nav-item dropdown">
                         <a
-                          class="nav-link text-dark dropdown-toggle"
+                          className="nav-link text-dark dropdown-toggle"
                           href="#"
                           id="navbarDropdownMenuLink"
                           role="button"
@@ -131,7 +131,7 @@ const Navbar = ({ auth, onClickLogout, user }) => {
                           Admin Panel
                         </a>
                         <div
-                          class="dropdown-menu"
+                          className="dropdown-menu"
                           aria-labelledby="navbarDropdownMenuLink"
                         >
                           <Link to="/admin/urls" className="dropdown-item">

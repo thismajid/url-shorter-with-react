@@ -22,4 +22,9 @@ const decodeToken = (req, next) => {
   }
 };
 
-export { authorize, decodeToken };
+const adminAuthorize = (req, res, next) => {
+  if (req.user.role === 'admin') return next();
+  throw new Error('Unauthroized');
+};
+
+export { authorize, decodeToken, adminAuthorize };

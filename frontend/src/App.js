@@ -9,10 +9,11 @@ import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import HomePage from "./components/HomePage/HomePage";
 import Url from "./components/Url/Url";
-import Dashboard from "./components/Dashboard/Dashboard";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import Profile from "./components/Dashboard/Profile/Profile";
 import Avatar from "./components/Dashboard/Profile/Avatar/Avatar";
+import AdminUrls from "./components/Dashboard/AdminUrls/AdminUrls";
+import MainPage from "./components/Dashboard/MainPage/MainPage";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -21,9 +22,16 @@ function App() {
   );
 
   const [user, setUser] = useState();
+  const [admin, setAdmin] = useState();
 
   useEffect(() => {
-    if (token) setUser(jwt_decode(token));
+    if (token) {
+      const logginUser = jwt_decode(token);
+      setUser(logginUser);
+      if (logginUser.role === "admin") {
+        setAdmin(logginUser);
+      }
+    }
   }, [!isAuthenticated]);
 
   const onClickLogout = () => {
@@ -70,7 +78,7 @@ function App() {
         <ProtectedRoute
           path="/dashboard"
           exact
-          component={Dashboard}
+          component={MainPage}
           isAuthenticated={isAuthenticated}
           user={user}
         />
@@ -88,6 +96,14 @@ function App() {
           exact
           component={Profile}
           isAuthenticated={isAuthenticated}
+          user={user}
+        />
+
+        <ProtectedRoute
+          path="/admin/urls"
+          exact
+          component={AdminUrls}
+          isAuthenticated={isAuthenticated && admin}
           user={user}
         />
 

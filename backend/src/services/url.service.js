@@ -70,6 +70,14 @@ const getUrlsByUserId = async (userId) => {
   }
 };
 
+const getAllUsersUrls = async () => {
+  try {
+    return await Url.find({}).populate('user');
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   createUrl,
   getUrl,
@@ -78,4 +86,5 @@ export {
   updateUrl,
   getUrlByShortname,
   getUrlsByUserId,
+  getAllUsersUrls,
 };

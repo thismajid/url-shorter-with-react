@@ -1,43 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import moment from "moment";
-import { Toast, successToast, errorToast } from "../../Toast/Toast";
-import { getAllUserUrls, removeUrl } from "../../../services/requestService";
+import { successToast, errorToast } from "../../Toast/Toast";
+import { removeUrl } from "../../../services/requestService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import Back from "../Back/Back";
 import ModalComponent from "./Modal/ModalComponent";
 import { Link } from "react-router-dom";
 
-const AllUrls = () => {
-  const [urls, setUrls] = useState(null);
+const AllUrls = ({ urls }) => {
+  console.log(urls);
   const [show, setShow] = useState(false);
   const [urlShortname, setUrlShortname] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    getUrls();
-  }, []);
-
-  const getUrls = async () => {
-    try {
-      const { data } = await getAllUserUrls();
-      if (data) {
-        setUrls(data.data);
-      }
-    } catch (err) {
-      errorToast("Something went wrong ...");
-    }
-  };
-
   const deleteHandler = async (e) => {
     try {
       const id = e.target.id.split("-")[1];
+      console.log(id);
       if (id) {
         await removeUrl(id);
         successToast("URL removed successfully");
         setTimeout(() => {
-          getUrls();
+          // getUrls();
         }, 3000);
       }
     } catch (err) {
@@ -47,8 +32,6 @@ const AllUrls = () => {
 
   return (
     <>
-      <Back />
-      <Toast />
       <div className="table-responsive">
         <table className="table align-middle">
           <thead>
