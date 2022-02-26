@@ -81,13 +81,14 @@ const editUrl = async (req, res) => {
       return sendResponse
         .setError(404, `URL with id: ${id} does not exist`)
         .send(res);
-    if (urlFound.user !== userId)
+    if (urlFound.user.toString() !== userId)
       return sendResponse.setError(403, `Permission denied`).send(res);
-    const updateUrl = await updateUrl(id, url, shortname);
+    const updatedUrl = await updateUrl(id, url, shortname);
     return sendResponse
-      .setSuccess(200, `URL with id: ${id} update successfully`, updateUrl)
+      .setSuccess(200, `URL with id: ${id} update successfully`, updatedUrl)
       .send(res);
   } catch (err) {
+    console.log(err);
     return sendResponse.setError(400, err.message).send(res);
   }
 };

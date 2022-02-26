@@ -37,7 +37,7 @@ const Url = () => {
 
   return (
     <div>
-      {url ? (
+      {url && (
         <div className="mt-5 m-auto text-center">
           <Counter />
           <button
@@ -47,8 +47,6 @@ const Url = () => {
             Go to URL
           </button>
         </div>
-      ) : (
-        "nothing"
       )}
     </div>
   );

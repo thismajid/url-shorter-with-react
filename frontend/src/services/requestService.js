@@ -90,6 +90,14 @@ const removeUrl = async (id) => {
   }
 };
 
+const updateUrlReq = async (updatedUrl) => {
+  try {
+    return await http.put("/url", updatedUrl);
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   registerReq,
   loginReq,
@@ -102,4 +110,5 @@ export {
   removeAvatar,
   resetPasswordProfile,
   removeUrl,
+  updateUrlReq,
 };

@@ -6,3 +6,7 @@
     text-align: center;
   }
 }
+
+.navbar-nav li:hover > .dropdown-menu {
+  display: block;
+}

@@ -4,6 +4,7 @@ import { authorize } from '../middlewares/authorize.middleware';
 import {
   createShortUrl,
   getSingleUrl,
+  getSingleUrlById,
   deleteUrl,
   editUrl,
 } from '../controllers/url.controller';

@@ -4,9 +4,16 @@ import { Toast, successToast, errorToast } from "../../Toast/Toast";
 import { getAllUserUrls, removeUrl } from "../../../services/requestService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import Back from "../Back/Back";
+import ModalComponent from "./Modal/ModalComponent";
+import { Link } from "react-router-dom";
 
 const AllUrls = () => {
   const [urls, setUrls] = useState(null);
+  const [show, setShow] = useState(false);
+  const [urlShortname, setUrlShortname] = useState(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     getUrls();
@@ -49,6 +56,7 @@ const AllUrls = () => {
               <th scope="col">#</th>
               <th scope="col">URL</th>
               <th scope="col">Shortname</th>
+              <th scope="col">Link</th>
               <th scope="col">Created At</th>
               <th scope="col">Updated At</th>
               <th scope="col">Operations</th>
@@ -62,12 +70,19 @@ const AllUrls = () => {
                     <th scope="row">{index + 1}</th>
                     <td>{url.url}</td>
                     <td>{url.shortname}</td>
+                    <td>
+                      <Link to={`/${url.shortname}`}>Go To</Link>
+                    </td>
                     <td>{moment(url.createdAt).format("L")}</td>
                     <td>{moment(url.updatedAt).format("L")}</td>
                     <td>
                       <button
                         type="button"
-                        className="btn btn-success btn-sm me-2 "
+                        className="btn btn-success btn-sm me-2"
+                        onClick={() => {
+                          handleShow();
+                          setUrlShortname(url.shortname);
+                        }}
                       >
                         <AiFillEdit />
                       </button>
@@ -85,6 +100,11 @@ const AllUrls = () => {
               })}
           </tbody>
         </table>
+        <ModalComponent
+          handleClose={handleClose}
+          show={show}
+          urlShortname={urlShortname}
+        />
       </div>
     </>
   );

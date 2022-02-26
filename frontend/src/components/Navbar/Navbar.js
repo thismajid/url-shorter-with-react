@@ -116,9 +116,34 @@ const Navbar = ({ auth, onClickLogout, user }) => {
                   Profile
                 </Link>
                 {user.role === "admin" && (
-                  <Link to="/admin" className="dropdown-item">
-                    admin
-                  </Link>
+                  <>
+                    <ul class="navbar-nav ms-2 dropdown-item">
+                      <li class="nav-item dropdown">
+                        <a
+                          class="nav-link text-dark dropdown-toggle"
+                          href="#"
+                          id="navbarDropdownMenuLink"
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Admin Panel
+                        </a>
+                        <div
+                          class="dropdown-menu"
+                          aria-labelledby="navbarDropdownMenuLink"
+                        >
+                          <Link to="/admin/urls" className="dropdown-item">
+                            All URLs
+                          </Link>
+                          <Link to="/admin/users" className="dropdown-item">
+                            User Management
+                          </Link>
+                        </div>
+                      </li>
+                    </ul>
+                  </>
                 )}
 
                 <li>
