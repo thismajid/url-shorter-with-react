@@ -46,10 +46,19 @@ const getUsers = async () => {
   }
 };
 
+const changeRole = async (id) => {
+  try {
+    return await User.findByIdAndUpdate(id, { role: 'admin' });
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   getUserByUserId,
   updateUser,
   changeAvatar,
   changeAvatarToDefault,
   getUsers,
+  changeRole,
 };

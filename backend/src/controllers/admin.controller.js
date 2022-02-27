@@ -1,6 +1,6 @@
 import SendResponse from '../utils/sendResponse.util';
 import { getAllUsersUrls } from '../services/url.service';
-import { getUsers } from '../services/user.service';
+import { getUsers, changeRole } from '../services/user.service';
 
 const sendResponse = new SendResponse();
 
@@ -26,4 +26,16 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-export { getAllUrls, getAllUsers };
+const changeUserRole = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    await changeRole(userId);
+    return sendResponse
+      .setSuccess(200, `User's role updated successfully`)
+      .send(res);
+  } catch (err) {
+    return sendResponse.setError(400, err.message).send(res);
+  }
+};
+
+export { getAllUrls, getAllUsers, changeUserRole };

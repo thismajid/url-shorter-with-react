@@ -7,7 +7,6 @@ import ModalComponent from "./Modal/ModalComponent";
 import { Link } from "react-router-dom";
 
 const AllUrls = ({ urls }) => {
-  console.log(urls);
   const [show, setShow] = useState(false);
   const [urlShortname, setUrlShortname] = useState(null);
 
@@ -17,7 +16,6 @@ const AllUrls = ({ urls }) => {
   const deleteHandler = async (e) => {
     try {
       const id = e.target.id.split("-")[1];
-      console.log(id);
       if (id) {
         await removeUrl(id);
         successToast("URL removed successfully");

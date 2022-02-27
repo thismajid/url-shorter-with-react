@@ -30,7 +30,7 @@ const ManageUsers = () => {
     <div className="col-6 mx-auto mt-5">
       <Back />
       <Toast />
-      <Users currentUser={currentUser} users={users} />
+      <Users currentUser={currentUser} users={users} getUsers={getUsers} />
     </div>
   );
 };

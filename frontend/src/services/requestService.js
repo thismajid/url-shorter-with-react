@@ -114,6 +114,14 @@ const getAllUsers = async () => {
   }
 };
 
+const changeRole = async (userId) => {
+  try {
+    return await http.put("/admin/user", { userId });
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   registerReq,
   loginReq,
@@ -129,4 +137,5 @@ export {
   updateUrlReq,
   getAllUsersUrls,
   getAllUsers,
+  changeRole,
 };

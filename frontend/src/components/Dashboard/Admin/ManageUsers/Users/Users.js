@@ -1,6 +1,14 @@
+import { useState } from "react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import ModalComponent from "./Modal/ModalComponent";
 
-const Users = ({ users, currentUser }) => {
+const Users = ({ users, currentUser, getUsers }) => {
+  const [show, setShow] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
       <div className="table-responsive">
@@ -12,6 +20,7 @@ const Users = ({ users, currentUser }) => {
               <th scope="col">lastname</th>
               <th scope="col">email</th>
               <th scope="col">username</th>
+              <th scope="col">role</th>
               <th scope="col">Operations</th>
             </tr>
           </thead>
@@ -25,6 +34,7 @@ const Users = ({ users, currentUser }) => {
                     <td>{user.lastname}</td>
                     <td>{user.email}</td>
                     <td>{user.username}</td>
+                    <td>{user.role}</td>
 
                     <td>
                       {user._id !== currentUser.userId ? (
@@ -32,8 +42,12 @@ const Users = ({ users, currentUser }) => {
                           <button
                             type="button"
                             className="btn btn-success btn-sm me-2"
+                            onClick={() => {
+                              handleShow();
+                              setUser(user);
+                            }}
                           >
-                            Reset Password
+                            <AiFillEdit />
                           </button>
                           <button
                             type="button"
@@ -51,6 +65,12 @@ const Users = ({ users, currentUser }) => {
               })}
           </tbody>
         </table>
+        <ModalComponent
+          handleClose={handleClose}
+          show={show}
+          user={user}
+          getUsers={getUsers}
+        />
       </div>
     </>
   );
