@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import Redirecting from "./Redirecting";
 
-const ProtectedRoute = ({
+const UserRoute = ({
   component: Component,
   componentProps,
   isAuthenticated,
@@ -14,10 +14,29 @@ const ProtectedRoute = ({
       isAuthenticated ? (
         <Component {...props} {...componentProps} />
       ) : (
-        <Redirecting to="/login" />
+        <Redirecting to="/" />
       )
     }
   />
 );
 
-export default ProtectedRoute;
+const AdminRoute = ({
+  component: Component,
+  componentProps,
+  isAuthenticated,
+  user,
+  ...rest
+}) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isAuthenticated && user.role === "admin" ? (
+        <Component {...props} {...componentProps} />
+      ) : (
+        <Redirecting to="/" />
+      )
+    }
+  />
+);
+
+export { UserRoute, AdminRoute };

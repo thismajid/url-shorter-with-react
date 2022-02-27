@@ -19,6 +19,10 @@ const Navbar = ({ auth, onClickLogout, user }) => {
         return setDashboardNav(true);
       case "/profile/avatar":
         return setDashboardNav(true);
+      case "/admin/urls":
+        return setDashboardNav(true);
+      case "/admin/users":
+        return setDashboardNav(true);
       default:
         return setDashboardNav(false);
     }
@@ -146,10 +150,7 @@ const Navbar = ({ auth, onClickLogout, user }) => {
                   </>
                 )}
 
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
+                <li className="mt-5">
                   <Link
                     to="/logout"
                     className="dropdown-item"

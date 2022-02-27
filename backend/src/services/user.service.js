@@ -38,4 +38,18 @@ const changeAvatarToDefault = async (userId) => {
   }
 };
 
-export { getUserByUserId, updateUser, changeAvatar, changeAvatarToDefault };
+const getUsers = async () => {
+  try {
+    return await User.find({});
+  } catch (err) {
+    throw err;
+  }
+};
+
+export {
+  getUserByUserId,
+  updateUser,
+  changeAvatar,
+  changeAvatarToDefault,
+  getUsers,
+};

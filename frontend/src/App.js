@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import jwt_decode from "jwt-decode";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { authorize } from "./services/authorize";
+import { UserRoute, AdminRoute } from "./components/ProtectedRoute";
 import Redirecting from "./components/Redirecting";
 import Navbar from "./components/Navbar/Navbar";
 import Register from "./components/Register/Register";
@@ -12,25 +12,21 @@ import Url from "./components/Url/Url";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import Profile from "./components/Dashboard/Profile/Profile";
 import Avatar from "./components/Dashboard/Profile/Avatar/Avatar";
-import AdminUrls from "./components/Dashboard/AdminUrls/AdminUrls";
+import AdminUrls from "./components/Dashboard/Admin/AdminUrls/AdminUrls";
 import MainPage from "./components/Dashboard/MainPage/MainPage";
+import ManageUsers from "./components/Dashboard/Admin/ManageUsers/ManageUsers";
 
 function App() {
-  const token = localStorage.getItem("token");
+  const { logginUser, token } = authorize();
+
   const [isAuthenticated, setIsAuthenticated] = useState(
     token && token.length > 0
   );
-
   const [user, setUser] = useState();
-  const [admin, setAdmin] = useState();
 
   useEffect(() => {
     if (token) {
-      const logginUser = jwt_decode(token);
       setUser(logginUser);
-      if (logginUser.role === "admin") {
-        setAdmin(logginUser);
-      }
     }
   }, [!isAuthenticated]);
 
@@ -75,7 +71,7 @@ function App() {
             </>
           )}
         />
-        <ProtectedRoute
+        <UserRoute
           path="/dashboard"
           exact
           component={MainPage}
@@ -83,7 +79,7 @@ function App() {
           user={user}
         />
 
-        <ProtectedRoute
+        <UserRoute
           path="/profile/avatar"
           exact
           component={Avatar}
@@ -91,27 +87,31 @@ function App() {
           user={user}
         />
 
-        <ProtectedRoute
+        <UserRoute
           path="/profile"
           exact
           component={Profile}
           isAuthenticated={isAuthenticated}
-          user={user}
+          user={logginUser}
         />
 
-        <ProtectedRoute
+        <AdminRoute
           path="/admin/urls"
           exact
           component={AdminUrls}
-          isAuthenticated={isAuthenticated && admin}
-          user={user}
+          isAuthenticated={isAuthenticated}
+          user={logginUser}
         />
 
-        <ProtectedRoute
+        <AdminRoute
+          path="/admin/users"
           exact
-          path="/logout"
+          component={ManageUsers}
           isAuthenticated={isAuthenticated}
+          user={logginUser}
         />
+
+        <UserRoute exact path="/logout" isAuthenticated={isAuthenticated} />
         <Route path="/" exact component={HomePage} />
         <Route path="/:shortname" component={Url} />
 

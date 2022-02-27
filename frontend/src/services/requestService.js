@@ -106,6 +106,14 @@ const getAllUsersUrls = async () => {
   }
 };
 
+const getAllUsers = async () => {
+  try {
+    return await http.get("/admin/users");
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   registerReq,
   loginReq,
@@ -120,4 +128,5 @@ export {
   removeUrl,
   updateUrlReq,
   getAllUsersUrls,
+  getAllUsers,
 };

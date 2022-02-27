@@ -9,4 +9,5 @@
 
 .navbar-nav li:hover > .dropdown-menu {
   display: block;
+  padding: 1rem !important;
 }

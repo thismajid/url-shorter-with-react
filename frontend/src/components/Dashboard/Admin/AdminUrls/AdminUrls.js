@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Toast } from "../../Toast/Toast";
-import Back from "../Back/Back";
-import AllUrls from "../AllUrls/AllUrls";
-import { getAllUsersUrls } from "../../../services/requestService";
+import { Toast } from "../../../Toast/Toast";
+import Back from "../../Back/Back";
+import AllUrls from "../../AllUrls/AllUrls";
+import { getAllUsersUrls } from "../../../../services/requestService";
 
 const AdminUrls = () => {
   const [urls, setUrls] = useState();
