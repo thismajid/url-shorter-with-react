@@ -17,6 +17,7 @@ const emailService = new EmailService();
 
 const register = async (req, res) => {
   try {
+    console.log(req.body);
     const { firstname, lastname, email, username, password } = req.body;
     const usernameFound = await findUsername(username);
     if (usernameFound) {
@@ -44,6 +45,7 @@ const register = async (req, res) => {
       .setSuccess(201, 'User created successfully', newUser)
       .send(res);
   } catch (err) {
+    console.log(err);
     sendResponse.setError(400, err.message).send(res);
   }
 };
