@@ -29,7 +29,7 @@ const MainPage = () => {
         <Back />
         <Toast />
         <div className="col-6 mx-auto mt-5">
-          <AllUrls urls={urls} />
+          <AllUrls urls={urls} getUrls={getUrls} />
         </div>
       </main>
     </>

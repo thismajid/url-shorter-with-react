@@ -6,7 +6,7 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import ModalComponent from "./Modal/ModalComponent";
 import { Link } from "react-router-dom";
 
-const AllUrls = ({ urls }) => {
+const AllUrls = ({ urls, getUrls }) => {
   const [show, setShow] = useState(false);
   const [urlShortname, setUrlShortname] = useState(null);
 
@@ -20,7 +20,7 @@ const AllUrls = ({ urls }) => {
         await removeUrl(id);
         successToast("URL removed successfully");
         setTimeout(() => {
-          // getUrls();
+          getUrls();
         }, 3000);
       }
     } catch (err) {

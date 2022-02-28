@@ -16,11 +16,11 @@ const Users = ({ users, currentUser, getUsers }) => {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">firstname</th>
-              <th scope="col">lastname</th>
-              <th scope="col">email</th>
-              <th scope="col">username</th>
-              <th scope="col">role</th>
+              <th scope="col">Firstname</th>
+              <th scope="col">Lastname</th>
+              <th scope="col">Email</th>
+              <th scope="col">Username</th>
+              <th scope="col">Role</th>
               <th scope="col">Operations</th>
             </tr>
           </thead>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Toast } from "../../../Toast/Toast";
+import { Toast, errorToast } from "../../../Toast/Toast";
 import Back from "../../Back/Back";
 import AllUrls from "../../AllUrls/AllUrls";
 import { getAllUsersUrls } from "../../../../services/requestService";
@@ -18,7 +18,7 @@ const AdminUrls = () => {
         setUrls(data.data);
       }
     } catch (err) {
-      console.log(err);
+      errorToast("Something went wrong ...");
     }
   };
 

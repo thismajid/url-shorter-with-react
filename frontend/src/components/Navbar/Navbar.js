@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 import "./navbar.css";
-import { useEffect, useState } from "react";
 
 const Navbar = ({ auth, onClickLogout, user }) => {
   const [dashboardNav, setDashboardNav] = useState(false);

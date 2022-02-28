@@ -6,13 +6,14 @@ const UserRoute = ({
   component: Component,
   componentProps,
   isAuthenticated,
+  user,
   ...rest
 }) => (
   <Route
     {...rest}
     render={(props) =>
       isAuthenticated ? (
-        <Component {...props} {...componentProps} />
+        <Component {...props} {...componentProps} currentUser={user} />
       ) : (
         <Redirecting to="/" />
       )
@@ -31,7 +32,7 @@ const AdminRoute = ({
     {...rest}
     render={(props) =>
       isAuthenticated && user.role === "admin" ? (
-        <Component {...props} {...componentProps} />
+        <Component {...props} {...componentProps} currentUser={user} />
       ) : (
         <Redirecting to="/" />
       )

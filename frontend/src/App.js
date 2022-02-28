@@ -76,7 +76,7 @@ function App() {
           exact
           component={MainPage}
           isAuthenticated={isAuthenticated}
-          user={user}
+          user={logginUser}
         />
 
         <UserRoute
@@ -84,7 +84,7 @@ function App() {
           exact
           component={Avatar}
           isAuthenticated={isAuthenticated}
-          user={user}
+          user={logginUser}
         />
 
         <UserRoute

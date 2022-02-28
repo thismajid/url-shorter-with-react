@@ -1,4 +1,3 @@
-// import { useEffect, useState } from "react";
 import { Modal, Button, Form, FloatingLabel, Row, Col } from "react-bootstrap";
 import { Toast, errorToast } from "../../../../../Toast/Toast";
 import { changeRole } from "../../../../../../services/requestService";
