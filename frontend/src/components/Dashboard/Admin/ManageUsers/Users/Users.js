@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import ModalComponent from "./Modal/ModalComponent";
+import { deleteUser } from "../../../../../services/requestService";
+import { successToast, errorToast } from "../../../../Toast/Toast";
 
 const Users = ({ users, currentUser, getUsers }) => {
   const [show, setShow] = useState(false);
@@ -11,9 +13,15 @@ const Users = ({ users, currentUser, getUsers }) => {
 
   const deleteHandler = async (id) => {
     try {
-      console.log(id);
+      if (id) {
+        await deleteUser(id);
+        successToast("User deleted successfully");
+        setTimeout(() => {
+          getUsers();
+        }, 1500);
+      }
     } catch (err) {
-      console.log(err);
+      errorToast("Something went wrong ...");
     }
   };
 

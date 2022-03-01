@@ -78,6 +78,14 @@ const getAllUsersUrls = async () => {
   }
 };
 
+const deleteUrlsByUserId = async (userId) => {
+  try {
+    return await Url.deleteMany({ user: userId });
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   createUrl,
   getUrl,
@@ -87,4 +95,5 @@ export {
   getUrlByShortname,
   getUrlsByUserId,
   getAllUsersUrls,
+  deleteUrlsByUserId,
 };

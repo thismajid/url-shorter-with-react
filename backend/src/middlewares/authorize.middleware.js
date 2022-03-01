@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 
 import jwtConfig from '../configs/jwt.config';
 
+// import { getUserByUserId } from '../services/user.service';
+
 const authorize = (req, res, next) => {
   req.user = {};
   const headers = req.headers.authorization;
@@ -17,6 +19,10 @@ const decodeToken = (req, next) => {
   try {
     req.user = jwt.verify(req.user.token, jwtConfig.secret);
     next();
+    // if (req.user.userId) {
+    //   const userFound = await getUserByUserId(req.user.userId);
+    //   if (!userFound) throw new Error('Invalid token');
+    // }
   } catch (err) {
     throw new Error('Invalid token');
   }

@@ -122,6 +122,14 @@ const changeRole = async (userId) => {
   }
 };
 
+const deleteUser = async (userId) => {
+  try {
+    return await http.delete("/admin/user", { data: { userId } });
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   registerReq,
   loginReq,
@@ -138,4 +146,5 @@ export {
   getAllUsersUrls,
   getAllUsers,
   changeRole,
+  deleteUser,
 };

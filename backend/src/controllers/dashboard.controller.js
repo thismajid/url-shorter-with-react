@@ -5,6 +5,7 @@ import {
   updateUser,
   changeAvatar,
   changeAvatarToDefault,
+  deleteAvatar,
 } from '../services/user.service';
 import { createNewResetPassword } from '../services/auth.service';
 import EmailService from '../services/email.service';
@@ -76,6 +77,9 @@ const removeAvatar = async (req, res) => {
         .send(res);
     }
     await changeAvatarToDefault(userId);
+    if (user.avatar !== 'uploads/user-avatar.png') {
+      await deleteAvatar(user.avatar);
+    }
     return sendResponse
       .setSuccess(200, `User with id: ${userId} avatar removed successfully`)
       .send(res);

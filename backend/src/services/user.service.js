@@ -1,4 +1,9 @@
+import fs from 'fs';
+import path from 'path';
+
 import User from '../models/user.model';
+
+const fsPromises = fs.promises;
 
 const getUserByUserId = async (userId) => {
   try {
@@ -54,6 +59,24 @@ const changeRole = async (id) => {
   }
 };
 
+const removeUser = async (userId) => {
+  try {
+    return await User.findByIdAndDelete(userId);
+  } catch (err) {
+    throw err;
+  }
+};
+
+const deleteAvatar = async (address) => {
+  try {
+    return await fsPromises.unlink(
+      path.join(__dirname, `../../public/${address}`)
+    );
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   getUserByUserId,
   updateUser,
@@ -61,4 +84,6 @@ export {
   changeAvatarToDefault,
   getUsers,
   changeRole,
+  removeUser,
+  deleteAvatar,
 };
