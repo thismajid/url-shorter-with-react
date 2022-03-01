@@ -25,8 +25,10 @@ const Login = ({ setIsAuthenticated, setUserInfo }) => {
         }, 3000);
       }
     } catch (err) {
-      if (err.response.data.message === "Invalid username/password") {
-        errorToast("Invalid username/password");
+      if (err.response.data.message === "Invalid username") {
+        errorToast("Invalid username");
+      } else if (err.response.data.message === "Invalid password") {
+        errorToast("Invalid password");
       } else {
         errorToast("Something went wrong ...");
       }

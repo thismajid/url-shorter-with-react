@@ -36,6 +36,7 @@ const Register = ({ history }) => {
   const onSubmit = async (data) => {
     try {
       if (data) {
+        delete data.confirmPassword;
         const response = await registerReq(data);
         if (response.status === 201) {
           successToast("Registration successfully");

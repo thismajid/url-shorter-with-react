@@ -9,6 +9,14 @@ const Users = ({ users, currentUser, getUsers }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const deleteHandler = async (id) => {
+    try {
+      console.log(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="table-responsive">
@@ -52,6 +60,7 @@ const Users = ({ users, currentUser, getUsers }) => {
                           <button
                             type="button"
                             className="btn btn-danger btn-sm"
+                            onClick={() => deleteHandler(user._id)}
                           >
                             <AiFillDelete />
                           </button>

@@ -17,7 +17,6 @@ const emailService = new EmailService();
 
 const register = async (req, res) => {
   try {
-    console.log(req.body);
     const { firstname, lastname, email, username, password } = req.body;
     const usernameFound = await findUsername(username);
     if (usernameFound) {
@@ -54,9 +53,12 @@ const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     const userFound = await findUsername(username);
+    if (!userFound) {
+      return sendResponse.setError(404, 'Invalid username').send(res);
+    }
     const matchPassword = await authenticateUser(username, password);
-    if (!userFound || !matchPassword) {
-      return sendResponse.setError(404, 'Invalid username/password').send(res);
+    if (!matchPassword) {
+      return sendResponse.setError(404, 'Invalid password').send(res);
     }
     return sendResponse
       .setSuccess(200, 'Login successfully', {
@@ -72,6 +74,7 @@ const login = async (req, res) => {
       })
       .send(res);
   } catch (err) {
+    console.log(err);
     sendResponse.setError(400, err.message).send(res);
   }
 };

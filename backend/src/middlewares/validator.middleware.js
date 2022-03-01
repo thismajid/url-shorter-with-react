@@ -23,7 +23,7 @@ const registerValidator = async (req, res, next) => {
       },
     },
     required: ['firstname', 'lastname', 'email', 'username', 'password'],
-    additionalProperties: true,
+    additionalProperties: false,
   };
 
   try {
@@ -54,7 +54,7 @@ const loginValidator = async (req, res, next) => {
       },
     },
     required: ['username', 'password'],
-    additionalProperties: true,
+    additionalProperties: false,
   };
 
   try {
