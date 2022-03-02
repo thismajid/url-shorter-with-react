@@ -12,7 +12,9 @@ const sendResponse = new SendResponse();
 
 const getAllUrls = async (req, res) => {
   try {
-    const urls = await getAllUsersUrls();
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 10;
+    const urls = await getAllUsersUrls(page, limit);
     return sendResponse
       .setSuccess(200, 'All urls retrieved successfully', urls)
       .send(res);
@@ -23,7 +25,9 @@ const getAllUrls = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await getUsers();
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 10;
+    const users = await getUsers(page, limit);
     return sendResponse
       .setSuccess(200, 'All users retrieved successfully', users)
       .send(res);

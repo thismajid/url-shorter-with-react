@@ -62,17 +62,32 @@ const getUrlByShortname = async (shortname) => {
   }
 };
 
-const getUrlsByUserId = async (userId) => {
+const getUrlsByUserId = async (page, limit, userId) => {
   try {
-    return await Url.find({ user: userId });
+    const options = {
+      page,
+      limit,
+      collation: {
+        locale: 'en',
+      },
+    };
+    return await Url.paginate({ user: userId }, options);
   } catch (err) {
     throw err;
   }
 };
 
-const getAllUsersUrls = async () => {
+const getAllUsersUrls = async (page, limit) => {
   try {
-    return await Url.find({}).populate('user');
+    const options = {
+      page,
+      populate: 'user',
+      limit,
+      collation: {
+        locale: 'en',
+      },
+    };
+    return await Url.paginate({}, options);
   } catch (err) {
     throw err;
   }

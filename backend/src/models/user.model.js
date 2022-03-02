@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
@@ -86,5 +87,7 @@ UserSchema.methods.toJSON = function () {
   delete user.password;
   return user;
 };
+
+UserSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('User', UserSchema);

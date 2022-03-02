@@ -43,9 +43,16 @@ const changeAvatarToDefault = async (userId) => {
   }
 };
 
-const getUsers = async () => {
+const getUsers = async (page, limit) => {
   try {
-    return await User.find({});
+    const options = {
+      page,
+      limit,
+      collation: {
+        locale: 'en',
+      },
+    };
+    return await User.paginate({}, options);
   } catch (err) {
     throw err;
   }

@@ -32,9 +32,9 @@ const getUrl = async (shortname) => {
   }
 };
 
-const getAllUserUrls = async () => {
+const getAllUserUrls = async (currentPage) => {
   try {
-    return await http.get(`/dashboard/urls`);
+    return await http.get(`/dashboard/urls?page=${currentPage}`);
   } catch (err) {
     throw err;
   }
@@ -98,9 +98,9 @@ const updateUrlReq = async (updatedUrl) => {
   }
 };
 
-const getAllUsersUrls = async () => {
+const getAllUsersUrls = async (currentPage) => {
   try {
-    return await http.get("/admin/urls");
+    return await http.get(`/admin/urls?page=${currentPage}`);
   } catch (err) {
     throw err;
   }

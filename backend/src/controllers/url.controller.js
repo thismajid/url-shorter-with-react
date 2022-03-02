@@ -14,7 +14,6 @@ const createShortUrl = async (req, res) => {
   try {
     const { url, shortname } = req.body;
     const { userId } = req.user;
-    console.log(req.body);
     const checkShortnameExist = await getUrlByShortname(shortname);
     if (checkShortnameExist)
       return sendResponse
@@ -25,7 +24,6 @@ const createShortUrl = async (req, res) => {
       .setSuccess(201, 'New short url created successfully', newUrl)
       .send(res);
   } catch (err) {
-    console.log(err);
     return sendResponse.setError(400, err.message).send(res);
   }
 };
@@ -67,7 +65,6 @@ const deleteUrl = async (req, res) => {
       .setSuccess(200, `URL with id: ${id} deleted successfully`)
       .send(res);
   } catch (err) {
-    console.log(err);
     return sendResponse.setError(400, err.message).send(res);
   }
 };
@@ -88,7 +85,6 @@ const editUrl = async (req, res) => {
       .setSuccess(200, `URL with id: ${id} update successfully`, updatedUrl)
       .send(res);
   } catch (err) {
-    console.log(err);
     return sendResponse.setError(400, err.message).send(res);
   }
 };

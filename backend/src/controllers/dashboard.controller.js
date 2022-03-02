@@ -15,8 +15,10 @@ const emailService = new EmailService();
 
 const getUrls = async (req, res) => {
   try {
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 10;
     const { userId } = req.user;
-    const urls = await getUrlsByUserId(userId);
+    const urls = await getUrlsByUserId(page, limit, userId);
     return sendResponse
       .setSuccess(200, 'All your urls retrieved successfully', urls)
       .send(res);
@@ -103,7 +105,6 @@ const resetPassword = async (req, res) => {
       .setSuccess(200, 'Email with reset password link has been sent')
       .send(res);
   } catch (err) {
-    console.log(err);
     return sendResponse.setError(400, err.message).send(res);
   }
 };
