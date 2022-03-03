@@ -4,7 +4,7 @@ const randomString = () => {
   let text = '';
   let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
-  for (let index = 0; index < 10; index++)
+  for (let index = 0; index < 5; index++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
   return text;
