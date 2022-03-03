@@ -36,7 +36,7 @@ const HomePage = ({ history }) => {
         }, 3000);
       }
     } catch (err) {
-      console.log(err);
+      errorToast("Something went wrong ...");
     }
   };
   return (

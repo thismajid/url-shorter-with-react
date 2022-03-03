@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUrl } from "../../services/requestService";
 import Counter from "./Counter/Counter";
+import { errorToast } from "../Toast/Toast";
 
 const Url = () => {
   const { shortname } = useParams();
@@ -31,7 +32,7 @@ const Url = () => {
       const { data } = await getUrl(shortname);
       setUrl(data.data);
     } catch (err) {
-      console.log(err);
+      errorToast("Something went wrong ...");
     }
   };
 
