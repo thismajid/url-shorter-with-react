@@ -1,6 +1,11 @@
+HOST=http://localhost:3001
 PORT=3001
 DB_HOST=localhost
 DB_PORT=27017
 DB_NAME=url_shorter
 TOKEN_SECRET=hf3yi6x7
 TOKEN_EXPIREDATE=7d
+EMAIL_SERVER=your mail server
+EMAIL_PORT=587
+EMAIL_USERNAME=your mail server username
+EMAIL_PASSWORD=your mail server password

@@ -9,7 +9,7 @@ class EmailService {
     this.transporter = nodemailer.createTransport({
       host: SERVER,
       port: PORT,
-      secure: true, // true for 465, false for other ports
+      secure: false, // true for 465, false for other ports
       auth: {
         user: USERNAME, // generated ethereal user
         pass: PASSWORD, // generated ethereal password
