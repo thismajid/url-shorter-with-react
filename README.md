@@ -13,4 +13,6 @@
 7. npm start
 8. Open Your Browser
 9. Search URL http://localhost:3000
+
+Admin Login Info => username: "admin" password: "123456aA"
 ```
