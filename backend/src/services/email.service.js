@@ -1,12 +1,8 @@
 import nodemailer from 'nodemailer';
 
-import {
-  HOST,
-  SERVER,
-  PORT,
-  USERNAME,
-  PASSWORD,
-} from '../configs/email.config';
+import { emailConfig } from '../configs';
+
+const { HOST, SERVER, PORT, USERNAME, PASSWORD } = emailConfig;
 
 class EmailService {
   constructor() {
@@ -23,7 +19,6 @@ class EmailService {
 
   async sendEmail(email, firstname, token) {
     try {
-      console.log(token);
       // send mail with defined transport object
       return await this.transporter.sendMail({
         from: `"URL Shorter 👻" <manager@URLShorter.ir>`, // sender address

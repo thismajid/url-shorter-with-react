@@ -8,9 +8,8 @@ import {
   getUrlByShortname,
 } from '../services/url.service';
 
-const sendResponse = new SendResponse();
-
 const createShortUrl = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { url, shortname } = req.body;
     const { userId } = req.user;
@@ -29,6 +28,7 @@ const createShortUrl = async (req, res) => {
 };
 
 const getSingleUrl = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { shortname } = req.params;
     const url = await getUrl(shortname);
@@ -49,6 +49,7 @@ const getSingleUrl = async (req, res) => {
 };
 
 const deleteUrl = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { id } = req.body;
     const { userId } = req.user;
@@ -70,6 +71,7 @@ const deleteUrl = async (req, res) => {
 };
 
 const editUrl = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { id, url, shortname } = req.body;
     const { userId } = req.user;

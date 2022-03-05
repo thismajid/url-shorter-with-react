@@ -10,10 +10,8 @@ import {
 import { createNewResetPassword } from '../services/auth.service';
 import EmailService from '../services/email.service';
 
-const sendResponse = new SendResponse();
-const emailService = new EmailService();
-
 const getUrls = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
@@ -28,6 +26,7 @@ const getUrls = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { userId } = req.user;
     const user = await getUserByUserId(userId);
@@ -40,6 +39,7 @@ const getUser = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { userId } = req.user;
     const { firstname, lastname } = req.body;
@@ -57,6 +57,7 @@ const updateProfile = async (req, res) => {
 };
 
 const uploadAvatar = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { userId } = req.user;
     const { filename } = req.file;
@@ -70,6 +71,7 @@ const uploadAvatar = async (req, res) => {
 };
 
 const removeAvatar = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { userId } = req.user;
     const user = await getUserByUserId(userId);
@@ -91,6 +93,8 @@ const removeAvatar = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
+  const sendResponse = new SendResponse();
+  const emailService = new EmailService();
   try {
     const { userId } = req.user;
     const user = await getUserByUserId(userId);

@@ -1,10 +1,12 @@
 import jwt from 'jsonwebtoken';
 
-import jwtConfig from '../configs/jwt.config';
+import { jwtConfig } from '../configs';
+
+const { secret, expiresIn } = jwtConfig;
 
 const generateToken = (payload) => {
-  return jwt.sign(payload, jwtConfig.secret, {
-    expiresIn: jwtConfig.expiresIn,
+  return jwt.sign(payload, secret, {
+    expiresIn,
   });
 };
 

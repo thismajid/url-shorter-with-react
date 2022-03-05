@@ -1,2 +1,13 @@
 /node_modules
 ./.env
+HOST=http://localhost:3001
+PORT=3001
+DB_HOST=localhost
+DB_PORT=27017
+DB_NAME=url_shorter
+TOKEN_SECRET=hf3yi6x7
+TOKEN_EXPIREDATE=7d
+EMAIL_SERVER=mailserver
+EMAIL_PORT=465
+EMAIL_USERNAME=mail server username
+EMAIL_PASSWORD=mail server password

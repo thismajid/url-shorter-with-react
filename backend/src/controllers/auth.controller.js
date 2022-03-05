@@ -12,10 +12,29 @@ import {
 import { generateToken } from '../services/jwt.service';
 import EmailService from '../services/email.service';
 
-const sendResponse = new SendResponse();
-const emailService = new EmailService();
+const createAdmin = async () => {
+  try {
+    const adminInfo = {
+      firstname: 'admin',
+      lastname: 'admin',
+      email: 'admin@admin.com',
+      username: 'admin',
+      password: '123456aA',
+      role: 'admin',
+    };
+
+    const adminFound = await findUsername(adminInfo.username);
+
+    if (!adminFound) {
+      await createUser(adminInfo);
+    }
+  } catch (err) {
+    throw err;
+  }
+};
 
 const register = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { firstname, lastname, email, username, password } = req.body;
     const usernameFound = await findUsername(username);
@@ -50,6 +69,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { username, password } = req.body;
     const userFound = await findUsername(username);
@@ -80,6 +100,8 @@ const login = async (req, res) => {
 };
 
 const forget = async (req, res) => {
+  const sendResponse = new SendResponse();
+  const emailService = new EmailService();
   try {
     const { username, email } = req.body;
     const user = username
@@ -99,6 +121,7 @@ const forget = async (req, res) => {
 };
 
 const reset = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { email, password, token } = req.body;
     const tokenFound = await findToken(token);
@@ -116,4 +139,4 @@ const reset = async (req, res) => {
   }
 };
 
-export { register, login, forget, reset };
+export { createAdmin, register, login, forget, reset };

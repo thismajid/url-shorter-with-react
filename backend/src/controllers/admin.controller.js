@@ -8,9 +8,8 @@ import {
   deleteAvatar,
 } from '../services/user.service';
 
-const sendResponse = new SendResponse();
-
 const getAllUrls = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
@@ -24,6 +23,7 @@ const getAllUrls = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
@@ -37,6 +37,7 @@ const getAllUsers = async (req, res) => {
 };
 
 const changeUserRole = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { userId } = req.body;
     await changeRole(userId);
@@ -49,6 +50,7 @@ const changeUserRole = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  const sendResponse = new SendResponse();
   try {
     const { userId } = req.body;
     const user = await getUserByUserId(userId);

@@ -2,6 +2,8 @@ import errorHandler from 'errorhandler';
 
 import app from '../app';
 
+import { createAdmin } from '../controllers/auth.controller';
+
 const debug = require('debug')('express-es6:server');
 
 /**
@@ -40,8 +42,9 @@ const onError = (error) => {
 
 const port = process.env.PORT || 3001;
 
-const server = app.listen(port, () => {
+const server = app.listen(port, async () => {
   console.log(`Server is running on http://localhost:${port} ...`);
+  await createAdmin();
 });
 
 const onListening = () => {
